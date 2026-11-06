@@ -11,7 +11,11 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:pages": "vite build --mode github-pages",
+    "preview:pages": "vite preview --mode github-pages",
+    "predeploy": "npm run build:pages",
+    "deploy": "gh-pages -d dist/client --nojekyll"
   },
   "overrides": {
     "rolldown": "1.2.1"
@@ -86,6 +90,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "gh-pages": "^6.3.0",
     "globals": "^15.15.0",
     "jsdom": "^20.0.3",
     "nitro": "3.0.260603-beta",

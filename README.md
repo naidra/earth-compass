@@ -26,3 +26,36 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Deploy to GitHub Pages
+
+Requires Node.js 22.12+ (or 24+) and Git access to this repository.
+
+```sh
+npm ci
+npm run deploy
+```
+
+`deploy` first runs `build:pages`, then uses the `gh-pages` package to publish
+only `dist/client` to the `gh-pages` branch on `origin`. It includes `.nojekyll`
+and preserves branch history.
+
+After the first deploy, open the repository's **Settings → Pages** and choose
+**Deploy from a branch**, branch **gh-pages**, folder **/ (root)**. The site will
+be available at <https://naidra.github.io/earth-compass/> once GitHub finishes
+publishing it. Future updates use the same `npm run deploy` command.
+
+To build and preview without publishing:
+
+```sh
+npm run build:pages
+npm run preview:pages
+```
+
+Open the preview server's `/earth-compass/` URL. This build uses TanStack Start's
+[SPA mode](https://tanstack.com/start/latest/docs/framework/react/guide/spa-mode)
+to generate static HTML and sets the asset and router base to `/earth-compass/`.
+If you rename the repository, update `vite.base` in `vite.config.ts` accordingly.
+GitHub Pages has no application server, so this mode fetches NOAA data directly
+from the browser using NOAA's CORS support. The regular development and Lovable
+builds continue using the server function.

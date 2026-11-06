@@ -1,7 +1,8 @@
 import { createFileRoute, ClientOnly } from "@tanstack/react-router";
 import { lazy, Suspense, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { fetchGeomag, buildGeomagUrl, type GeomagResult } from "@/lib/geomag.functions";
+import { fetchGeomag } from "@/lib/geomag.functions";
+import { fetchGeomagFromNoaa, buildGeomagUrl, type GeomagResult } from "@/lib/geomag";
 
 const WorldMap = lazy(() => import("@/components/WorldMap"));
 
@@ -25,7 +26,8 @@ const coord = (v: number, pos: string, neg: string) => `${Math.abs(v).toFixed(4)
 function Index() {
   const [point, setPoint] = useState<{ lat: number; lon: number } | null>(null);
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const q = useMutation({ mutationFn: (v: { lat: number; lon: number; date: string }) => fetchGeomag({ data: v }) });
+  const q = useMutation({ mutationFn: (v: { lat: number; lon: number; date: string }) =>
+    import.meta.env.MODE === "github-pages" ? fetchGeomagFromNoaa(v) : fetchGeomag({ data: v }) });
 
   const pick = (lat: number, lon: number) => {
     setPoint({ lat, lon });
