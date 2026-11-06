@@ -1,14 +1,20 @@
-# Welcome to your Lovable project
+# Earth Compass
+
+Build a reactJs application where users can choose a location on earth and then this url will be built dynamically then after the call to this API show the data in a human readable way. Use LeafletJs so the user can click a place on earth then with the lat, lon of that place build the url. Use best practices make it look professional
+
+
+
+https://www.ngdc.noaa.gov/geomag-web/calculators/calculateIgrfwmm?lat1=42.6629&lon1=21.1655&model=WMM&startYear=2026&startMonth=11&startDay=6&resultFormat=json&key=EAU2y
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/f3041682-2946-4e37-bfb5-f75ca11818b6).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +26,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
