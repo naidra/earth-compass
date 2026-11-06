@@ -14,9 +14,9 @@ export default function WorldMap({ point, onPick }: Props) {
   useEffect(() => {
     if (!el.current || map.current) return;
     const m = L.map(el.current, { worldCopyJump: true, minZoom: 2 }).setView([30, 10], 2);
-    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
-      attribution: 'Tiles &copy; Esri',
-      maxZoom: 16,
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
     }).addTo(m);
     m.on("click", (e) => pickRef.current(e.latlng.lat, L.Util.wrapNum(e.latlng.lng, [-180, 180], true)));
     map.current = m;
