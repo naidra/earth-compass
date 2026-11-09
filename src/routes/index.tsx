@@ -3,6 +3,7 @@ import { lazy, Suspense, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { fetchGeomag } from "@/lib/geomag.functions";
 import { fetchGeomagFromNoaa, buildGeomagUrl, type GeomagResult } from "@/lib/geomag";
+import { getCountry } from "@/lib/geocode";
 
 const WorldMap = lazy(() => import("@/components/WorldMap"));
 
@@ -28,10 +29,12 @@ function Index() {
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const q = useMutation({ mutationFn: (v: { lat: number; lon: number; date: string }) =>
     import.meta.env.MODE === "github-pages" ? fetchGeomagFromNoaa(v) : fetchGeomag({ data: v }) });
+  const country = useMutation({ mutationFn: (v: { lat: number; lon: number }) => getCountry(v.lat, v.lon) });
 
   const pick = (lat: number, lon: number) => {
     setPoint({ lat, lon });
     q.mutate({ lat, lon, date });
+    country.mutate({ lat, lon });
   };
   const changeDate = (d: string) => {
     setDate(d);
@@ -75,6 +78,11 @@ function Index() {
           {point && (
             <div>
               <p className="text-xs uppercase tracking-widest text-muted-foreground">Selected location</p>
+              {country.isPending ? (
+                <div className="mt-2 h-7 w-40 animate-pulse rounded bg-muted" />
+              ) : country.data ? (
+                <p className="mt-1 font-display text-2xl text-primary">{country.data}</p>
+              ) : null}
               <p className="mt-1 font-mono text-lg">{coord(point.lat, "N", "S")}, {coord(point.lon, "E", "W")}</p>
             </div>
           )}
